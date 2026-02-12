@@ -1,3 +1,4 @@
+alert("Skaner kodi yangilandi! v3.0");
 const html5QrCode = new Html5Qrcode("reader");
 let currentDataObj = null; // Global ob'ekt
 
@@ -10,27 +11,29 @@ html5QrCode.start(
 ).catch(err => console.error("Kamera ochilmadi:", err));
 
 function onScanSuccess(decodedText, decodedResult) {
-    console.log("Skanerlandi:", decodedText); // Debug uchun konsolga chiqarish
+    // Skanerlanganda nima kelayotganini ko'rish uchun
+    console.log("Original:", decodedText);
 
     try {
-        // Base64 decode
-        const decodedString = decodeURIComponent(escape(window.atob(decodedText)));
-        const data = JSON.parse(decodedString);
-        currentDataObj = data; // Ma'lumotni saqlab qo'yamiz
+        // Base64 dan decode qilish
+        // window.atob - bazaviy decode
+        // escape/decodeURIComponent - o'zbekcha harflar uchun
+        let decodedString = decodeURIComponent(escape(window.atob(decodedText)));
+        let data = JSON.parse(decodedString);
 
+        currentDataObj = data;
         html5QrCode.stop();
 
+        // Natijani jadval ko'rinishida chiqarish
         const resultDiv = document.getElementById("qr-result");
-        // MA'LUMOTLARNI CHIQARISH
         resultDiv.innerHTML = `
-            <div class="client-info" style="text-align: left; background: #f4f4f4; padding: 15px; border-radius: 8px;">
-                <p><strong>🆔 ID:</strong> ${data.ID || 'Noma\'lum'}</p>
-                <p><strong>👤 Mijoz:</strong> ${data.FullName || 'Noma\'lum'}</p>
-                <p><strong>🏢 Markaz:</strong> ${data.CenterName || 'Noma\'lum'}</p>
-                <p><strong>📚 Kurs:</strong> ${data.CourseName || 'Noma\'lum'}</p>
-                <p><strong>💰 To'lov:</strong> ${data.Amount} so'm</p>
-                <p><strong>⏳ Vaqt:</strong> ${data.Hours}</p>
-                <p><strong>📅 Sana:</strong> ${data.CreatedDate}</p>
+            <div style="text-align: left; background: #f0f0f0; padding: 15px; border-radius: 10px; border: 2px solid #3498db;">
+                <p><b>👤 Ism:</b> ${data.FullName}</p>
+                <p><b>🏢 Markaz:</b> ${data.CenterName}</p>
+                <p><b>📚 Kurs:</b> ${data.CourseName}</p>
+                <p><b>💰 Summa:</b> ${data.Amount} so'm</p>
+                <p><b>⏳ Vaqt:</b> ${data.Hours}</p>
+                <p><b>📅 Sana:</b> ${data.CreatedDate}</p>
             </div>
         `;
 
@@ -38,15 +41,15 @@ function onScanSuccess(decodedText, decodedResult) {
         document.getElementById("reader").classList.add("hidden");
 
     } catch (e) {
-        console.error("Xato:", e);
-        // Agar Base64 bo'lmasa, oddiy matn deb hisoblaymiz
-        document.getElementById("qr-result").innerText = "Xom ma'lumot: " + decodedText;
+        // Agar decoding xato bersa, xatolikni ko'rsatish
+        alert("Decoding xatosi: " + e.message);
+        document.getElementById("qr-result").innerText = decodedText;
         document.getElementById("result-box").classList.remove("hidden");
     }
 }
 
 function restartScanner() {
-    window.location.reload(true); // Sahifani qattiq yangilash (keshni tozalash uchun)
+    window.location.href = window.location.href.split('?')[0] + "?t=" + new Date().getTime();
 }
 
 async function sendToGoogleSheet() {
