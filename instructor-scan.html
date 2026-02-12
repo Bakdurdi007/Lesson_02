@@ -11,6 +11,7 @@
     <title>Instruktor Skaneri</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/scanner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
@@ -22,15 +23,20 @@
         <div id="reader"></div>
 
         <div id="result-box" class="hidden">
-            <p>Natija: <strong id="qr-result">...</strong></p>
-            <button onclick="sendToGoogleSheet()">Ma'lumotni jo'natish</button>
-            <button class="retry-btn" onclick="restartScanner()">Qayta skanerlash</button>
+            <h3 style="margin-bottom: 10px;">Skanerlangan ma'lumot:</h3>
+            <div id="qr-result">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button onclick="sendToGoogleSheet()" style="background: #27ae60;">Ma'lumotni jo'natish</button>
+                <button class="retry-btn" onclick="restartScanner()">Qayta skanerlash</button>
+            </div>
         </div>
 
         <div id="status-msg"></div>
     </div>
 </main>
 
-<script src="js/scanner.js"></script>
+<script src="js/scanner.js?v=1.2"></script>
 </body>
 </html>
