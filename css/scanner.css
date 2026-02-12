@@ -1,0 +1,37 @@
+.scanner-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#reader {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #2c3e50;
+    margin-bottom: 20px;
+}
+
+#result-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hidden { display: none; }
+
+button {
+    padding: 12px 20px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.retry-btn { background: #95a5a6; }
+
+#status-msg { margin-top: 15px; font-weight: bold; }

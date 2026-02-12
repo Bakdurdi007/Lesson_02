@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <script>
+        if (localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("userRole") !== "admin") {
+            window.location.href = "index.html";
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="mobile-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</div>
+
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>Admin Panel</h3>
+    </div>
+
+    <ul class="nav-menu">
+        <li>
+            <a href="instructors.html" class="nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Instructors</span>
+            </a>
+        </li>
+        <li>
+            <a href="instructors-report.html" class="nav-link">
+                <i class="fas fa-file-invoice"></i>
+                <span>InstructorsReport</span>
+            </a>
+        </li>
+        <li>
+            <a href="ticket.html" class="nav-link">
+                <i class="fas fa-ticket-alt"></i>
+                <span>Ticket</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Tizimdan chiqish</span>
+        </button>
+    </div>
+</nav>
+
+<main class="main-content">
+    <header class="top-bar">
+        <h2>Xush kelibsiz, <span id="adminName">Admin</span>!</h2>
+    </header>
+
+    <div class="content-body">
+        <p>Chap menyudan kerakli bo'limni tanlang.</p>
+    </div>
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>
